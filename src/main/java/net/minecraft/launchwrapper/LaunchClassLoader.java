@@ -198,9 +198,11 @@ public class LaunchClassLoader extends URLClassLoader {
             if (transformedClass == null) {
                 final String msg =
                         "Class " + untransformedName + "|" + transformedName + " is null after running transformers";
-                System.err.println(msg);
                 final NullPointerException npe = new NullPointerException(msg);
-                npe.printStackTrace();
+                if (DEBUG) {
+                    System.err.println(msg);
+                    npe.printStackTrace();
+                }
                 throw npe;
             }
 
@@ -355,6 +357,9 @@ public class LaunchClassLoader extends URLClassLoader {
         } else {
             for (final IClassTransformer transformer : transformers) {
                 basicClass = transformer.transform(name, transformedName, basicClass);
+            }
+            if (DEBUG_SAVE) {
+                saveTransformedClass(basicClass, transformedName);
             }
         }
         return basicClass;
