@@ -61,7 +61,7 @@ public class LaunchClassLoader extends URLClassLoader {
         addClassLoaderExclusion("org.apache.logging.");
         addClassLoaderExclusion("net.minecraft.launchwrapper.");
         addClassLoaderExclusion("net.HavenCore.");
-        
+
         // transformer exclusions
         addTransformerExclusion("javax.");
         addTransformerExclusion("argo.");
