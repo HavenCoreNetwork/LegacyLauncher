@@ -31,7 +31,7 @@ public class Launch {
 
     public static LaunchClassLoader classLoader;
     private static final PrintStream originalSysErr = System.err;
-
+    public static ClassLoader currentLoader;
     private Launch() {
         final ClassLoader rootLoader = getClass().getClassLoader();
         final URL[] classpath;
@@ -52,6 +52,7 @@ public class Launch {
         classLoader = new LaunchClassLoader(classpath);
         blackboard = new HashMap<>();
         Thread.currentThread().setContextClassLoader(classLoader);
+        currentLoader = Thread.currentThread().getContextClassLoader();
     }
 
     private void launch(String[] args) {
